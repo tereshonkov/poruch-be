@@ -78,16 +78,15 @@ class UserService {
 
         res.cookie('token', token, {
             httpOnly: true,
-            // secure: true, не забудь включити для продакшену
-            secure: false,
-            sameSite: 'lax', // 'none' для продакшену
+            secure: true, 
+            // secure: false,
+            sameSite: 'none',
             maxAge: 3600000 // 1 hour
         });
         res.cookie('refreshToken', newRefreshToken, {
             httpOnly: true,
-            // secure: true, не забудь включити для продакшену
-            secure: false,
-            sameSite: 'lax', // 'none' для продакшену
+            secure: true, 
+            sameSite: 'none',
             maxAge: 604800000 // 7 days
         });
 
