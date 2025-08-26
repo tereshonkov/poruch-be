@@ -10,12 +10,17 @@ class UserController {
     }
 
     async getUserByEmail(req: Request, res: Response) {
-        const email = req.params.email;
-        const user = await this.userService.getUserByEmail(email);
-        if (user) {
-            res.json(user);
+        const email = req.body.email;
+        const password = req.body.password;
+        if (email) {
+            const user = await this.userService.getUserByEmail(email, password);
+            if (user) {
+                res.status(200).json(user);
+            } else {
+                res.status(404).send("Користувача не знайдено або невірний пароль");
+            }
         } else {
-            res.status(404).send("Такого користувача не існує, або не вірно вказано email");
+            res.status(400).send("Email не надано");
         }
     }
 
