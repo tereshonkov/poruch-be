@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { secret } from "../config/config.js";
+import { secret } from "../config/config";
 import type { Request, Response, NextFunction } from "express";
 
 export default function authMiddleware(req: Request, res: Response, next: NextFunction) {

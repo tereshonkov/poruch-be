@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
-import UserService from './user.service.js';
-import type { UserDto } from './user.dto.ts';
+import UserService from './user.service';
+import type { UserDto } from './user.dto';
 
 class UserController {
     private userService: UserService;

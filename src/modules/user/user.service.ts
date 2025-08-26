@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import type { UserDto } from "./user.dto.ts";
+import type { UserDto } from "./user.dto";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import type { Response } from "express";
