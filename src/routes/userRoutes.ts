@@ -9,7 +9,8 @@ const userController = new UserController(userService);
 
 userRouter.get("/me", authMiddleware, userController.getUserById.bind(userController));
 userRouter.get("/:email", authMiddleware, userController.getUserByEmail.bind(userController));
+
 userRouter.post("/auth/register", userController.createUser.bind(userController));
-userRouter.post("/auth/login", authMiddleware, userController.loginUser.bind(userController));
+userRouter.post("/auth/login", userController.loginUser.bind(userController));
 
 export { userRouter };
