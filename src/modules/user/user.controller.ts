@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import UserService from './user.service.ts';
+import UserService from './user.service';
 import type { UserDto } from './user.dto.ts';
 
 class UserController {
