@@ -2,7 +2,7 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "dist",
-    "module": "commonjs",
+    "module": "esnext",
     "target": "es2020",
     "types": ["node"],
     "strict": true,
