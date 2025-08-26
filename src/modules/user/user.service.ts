@@ -89,7 +89,7 @@ class UserService {
             maxAge: 604800000 // 7 days
         });
 
-        return res.status(200).json({ message: "Успішний вхід" });
+        return res.status(200).json({ message: "Успішний вхід", user });
     }
 }
 
