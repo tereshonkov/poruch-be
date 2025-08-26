@@ -9,6 +9,22 @@ class UserController {
         this.userService = userService;
     }
 
+   async getUserById(req: Request, res: Response) {
+        //@ts-ignore
+        const id = req.user?.id;
+        if(!id) {
+            return res.status(401).send("Користувач не автентифікований");
+        }
+
+        const user = await this.userService.getUserById(id);
+        if(user) {
+            res.status(200).json(user);
+        } else {
+            res.status(404).send("Користувача не знайдено");
+        }
+        
+    }
+
     async getUserByEmail(req: Request, res: Response) {
         const email = req.body.email;
         const password = req.body.password;

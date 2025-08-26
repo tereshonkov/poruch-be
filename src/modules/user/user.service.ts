@@ -15,20 +15,26 @@ class UserService {
         return token;
     }
 
-    async getUserByEmail(email: string, password?: string) {
+    async getUserById(id: string) {
         const user = await this.prisma.user.findUnique({
-            where: { email }
+            where: { id },
+            include: {
+                requests: true
+            }
         });
-        if (!user) {
-            return null;
-        }
+        return user || null;
+    }
+
+    async getUserByEmail(email: string, password?: string) {
+        const user = await this.prisma.user.findUnique({ where: { email } });
+        if (!user) return null;
+    
         if (password) {
             const isValidPassword = await bcrypt.compare(password, user.password);
-            if (!isValidPassword) {
-                return null;
-            }
-            return user;
+            if (!isValidPassword) return null;
         }
+    
+        return user;
     }
 
     async createUser(dto: UserDto) {
