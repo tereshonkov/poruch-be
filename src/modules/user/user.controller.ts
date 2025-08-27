@@ -1,65 +1,62 @@
-import type { Request, Response } from 'express';
-import UserService from './user.service';
-import type { UserDto } from './user.dto';
+import type { Request, Response } from "express";
+import UserService from "./user.service";
+import type { UserDto } from "./user.dto";
 
 class UserController {
-    private userService: UserService;
+  private userService: UserService;
 
-    constructor(userService: UserService) {
-        this.userService = userService;
+  constructor(userService: UserService) {
+    this.userService = userService;
+  }
+
+  async getUserById(req: Request, res: Response) {
+    //@ts-ignore
+    const id = req.user?.id;
+    if (!id) {
+      return res.status(401).send("Користувач не автентифікований");
     }
 
-   async getUserById(req: Request, res: Response) {
-        //@ts-ignore
-        const id = req.user?.id;
-        if(!id) {
-            return res.status(401).send("Користувач не автентифікований");
-        }
-
-        const user = await this.userService.getUserById(id);
-        if(user) {
-            res.status(200).json(user);
-        } else {
-            res.status(404).send("Користувача не знайдено");
-        }
-        
+    const user = await this.userService.getUserById(id);
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res.status(404).send("Користувача не знайдено");
     }
+  }
 
-    async getUserByEmail(req: Request, res: Response) {
-        const email = req.body.email;
-        const password = req.body.password;
-        if (email) {
-            const user = await this.userService.getUserByEmail(email, password);
-            if (user) {
-                res.status(200).json(user);
-            } else {
-                res.status(404).send("Користувача не знайдено або невірний пароль");
-            }
-        } else {
-            res.status(400).send("Email не надано");
-        }
+  async getUserByEmail(req: Request, res: Response) {
+    const email = req.body.email;
+    const password = req.body.password;
+    if (email) {
+      const user = await this.userService.getUserByEmail(email, password);
+      if (user) {
+        res.status(200).json(user);
+      } else {
+        res.status(404).send("Користувача не знайдено або невірний пароль");
+      }
+    } else {
+      res.status(400).send("Email не надано");
     }
+  }
 
-    async createUser(req: Request, res: Response) {
-        const userData: UserDto = req.body;
-        if (userData) {
-            const result = await this.userService.createUser(userData);
-            res.status(201).json(result);
-        } else {
-            res.status(400).send("Невірні дані користувача");
-        }
+  async createUser(req: Request, res: Response) {
+    const userData: UserDto = req.body;
+    if (userData) {
+      const result = await this.userService.createUser(userData);
+      res.status(201).json(result);
+    } else {
+      res.status(400).send("Невірні дані користувача");
     }
+  }
 
-    async loginUser(req: Request, res: Response) {
-        const userData: UserDto = req.body;
-        if (userData) {
-            return this.userService.loginUser(userData, res);
-        } else {
-            res.status(400).send("Невірні дані користувача");
-        }
+  async loginUser(req: Request, res: Response) {
+    const userData: UserDto = req.body;
+    if (userData) {
+      return this.userService.loginUser(userData, res);
+    } else {
+      res.status(400).send("Невірні дані користувача");
     }
-
-    
+  }
 }
 
 export default UserController;
