@@ -2,24 +2,30 @@ import jwt from "jsonwebtoken";
 import { secret } from "../config/config";
 import type { Request, Response, NextFunction } from "express";
 
-export default function authMiddleware(req: Request, res: Response, next: NextFunction) {
-    if (req.method === "OPTIONS") {
-        return next();
+export default function authMiddleware(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  if (req.method === "OPTIONS") {
+    return next();
+  }
+
+  console.log("Cookies:", req.cookies);
+  console.log("Token:", req.cookies.token);
+
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      return res.status(401).json({ message: "Користувач не авторизований" });
     }
 
-    try {
-        const token = req.cookies.token;
-        if (!token) {
-            return res.status(401).json({ message: "Користувач не авторизований" });
-        }
+    const decoded = jwt.verify(token, secret);
+    // @ts-ignore
+    req.user = decoded;
 
-        const decoded = jwt.verify(token, secret);
-        // @ts-ignore
-        req.user = decoded;
-
-        next();
-
-    } catch {
-        return res.status(401).json({ message: "Користувач не авторизований" });
-    }
+    next();
+  } catch {
+    return res.status(401).json({ message: "Користувач не авторизований" });
+  }
 }
