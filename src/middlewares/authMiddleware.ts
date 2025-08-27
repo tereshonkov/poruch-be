@@ -11,9 +11,6 @@ export default function authMiddleware(
     return next();
   }
 
-  console.log("Cookies:", req.cookies);
-  console.log("Token:", req.cookies.token);
-
   try {
     const token = req.cookies.token;
     if (!token) {

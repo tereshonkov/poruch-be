@@ -9,4 +9,4 @@ const requestController = new RequestController(requestService);
 
 requestRouter.get("/user-requests", authMiddleware, requestController.getUserRequests.bind(requestController));
 
-export default requestRouter;
+export { requestRouter };
