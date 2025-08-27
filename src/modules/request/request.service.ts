@@ -4,12 +4,17 @@ import type { RequestDto } from "../request/request.dto";
 class RequestService {
   private prisma = new PrismaClient();
 
-  async userRequests(id: string) {
-    const requests = await this.prisma.request.findMany({
-      where: { userId: id },
-      orderBy: { createdAt: "desc" },
-    });
-    return requests;
+  async userRequests(id: string)  {
+    try {
+      const requests = await this.prisma.request.findMany({
+        where: { userId: id },
+        orderBy: { createdAt: "desc" },
+      });
+      return requests;
+    } catch (error) {
+      console.error("Ошибка в userRequests:", error);
+      throw error;
+    }
   }
 }
 
