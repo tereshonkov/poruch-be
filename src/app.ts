@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { userRouter } from './routes/userRoutes';
 import cookieParser from 'cookie-parser';
+import requestRouter from './routes/requestRoutes';
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(
 );
 app.use(express.json());
 app.use(userRouter);
+app.use(requestRouter);
 
 app.get("/", (req, res) => {
   res.send("Server is alive!");
