@@ -2,7 +2,7 @@ export interface RequestDto {
     id?: string;
     userId: string;
     description: string;
-    status: "pending" | "in_progress" | "completed";
+    status?: string;
     createdAt?: Date;
     updatedAt?: Date;
 }

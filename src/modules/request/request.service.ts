@@ -5,7 +5,7 @@ class RequestService {
   private prisma = new PrismaClient();
 
   async userRequests(id: string) {
-    const requests = await this.prisma.request.findMany({
+    const requests: RequestDto[] = await this.prisma.request.findMany({
       where: { userId: id },
       orderBy: { createdAt: "desc" },
     });
