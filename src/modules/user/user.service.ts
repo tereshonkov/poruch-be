@@ -25,14 +25,9 @@ class UserService {
         return user || null;
     }
 
-    async getUserByEmail(email: string, password?: string) {
+    async getUserByEmail(email: string) {
         const user = await this.prisma.user.findUnique({ where: { email } });
         if (!user) return null;
-
-        if (password) {
-            const isValidPassword = await bcrypt.compare(password, user.password);
-            if (!isValidPassword) return null;
-        }
     
         return user;
     }
