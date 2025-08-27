@@ -5,6 +5,7 @@ export interface UserDto {
   phone: string;
   roles: string[];
   password: string;
+  social?: string | null;
   status?: boolean;
   requests?: Request[];
 }

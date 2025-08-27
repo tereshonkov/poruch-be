@@ -47,7 +47,8 @@ class UserService {
                 password: hashedPassword,
                 roles: dto.roles,
                 status: true,
-                phone: dto.phone
+                phone: dto.phone,
+                social: dto.social
             },
             include: {
                 requests: true

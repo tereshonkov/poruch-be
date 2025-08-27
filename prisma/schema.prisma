@@ -15,6 +15,7 @@ model User {
   roles     String[]
   password  String
   status    Boolean   @default(false)
+  social    String?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   requests  Request[]
@@ -25,8 +26,14 @@ model Request {
   userId      String
   type        String
   description String
-  status      String
+  status      Status @default(PENDING)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum Status {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
 }
