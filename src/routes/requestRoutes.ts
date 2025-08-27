@@ -7,6 +7,6 @@ const requestRouter = Router();
 const requestService = new RequestService();
 const requestController = new RequestController(requestService);
 
-requestRouter.get("/user-requests", authMiddleware, requestController.getUserRequests.bind(requestController));
+requestRouter.get("/requests/users", authMiddleware, requestController.getUserRequests.bind(requestController));
 
 export { requestRouter };

@@ -9,8 +9,6 @@ class RequestService {
       where: { userId: id },
       orderBy: { createdAt: "desc" },
     });
-    console.log("=== Найдено заявок:", requests.length);
-    console.log("=== Сами заявки:", requests);
     return requests;
   }
 }
