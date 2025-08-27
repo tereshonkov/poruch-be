@@ -18,6 +18,10 @@ export default function authMiddleware(
     }
 
     const decoded = jwt.verify(token, secret);
+    console.log("Decoded user:", decoded);
+    if (!decoded || typeof decoded !== "object" || !("email" in decoded)) {
+      return res.status(401).json({ message: "Некорректный токен: нет email" });
+    }
     // @ts-ignore
     req.user = decoded;
 
