@@ -5,11 +5,11 @@ class RequestService {
   private prisma = new PrismaClient();
 
   async userRequests(id: string) {
-    const requests: RequestDto[] = await this.prisma.request.findMany({
+    const requests = await this.prisma.request.findMany({
       where: { userId: id },
       orderBy: { createdAt: "desc" },
     });
-    return requests;
+    return requests as RequestDto[];
   }
 }
 
