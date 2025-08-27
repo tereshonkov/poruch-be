@@ -11,6 +11,29 @@ class RequestService {
     });
     return requests as RequestDto[];
   }
+
+  async createRequest(dto: RequestDto) {
+    const requestOld = await this.prisma.request.findFirst({
+      where: { description: dto.description, userId: dto.userId },
+    });
+    if (requestOld) {
+      return { status: 409, message: "Така заявка вже існує" };
+    }
+
+    const request = await this.prisma.request.create({
+      data: {
+        userId: dto.userId,
+        description: dto.description,
+        status: dto.status ,
+        title: dto.title,
+        priority: dto.priority,
+        city: dto.city,
+        type: dto.type,
+        phone: dto.phone,
+      },
+    });
+    return request as RequestDto;
+  }
 }
 
 export default RequestService;

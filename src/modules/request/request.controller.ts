@@ -24,6 +24,24 @@ class RequestController {
     res.status(500).json({ message: "Ошибка сервера", error: err });
   }
   }
+
+  async createRequest(req: Request, res: Response) {
+    const dto: RequestDto = req.body;
+    //@ts-ignore
+    dto.userId = req.user?.id;
+
+    if (!dto.userId) {
+      return res.status(401).send("Користувач не автентифікований");
+    }
+
+    try {
+      const result = await this.requestService.createRequest(dto);
+      res.status(201).json(result);
+    } catch (err) {
+      console.error("Контроллер упал:", err);
+      res.status(500).json({ message: "Ошибка сервера", error: err });
+    }
+  }
 }
 
 export default RequestController;
