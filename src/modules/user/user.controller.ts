@@ -25,8 +25,10 @@ class UserController {
   }
 
   async getUserByEmail(req: Request, res: Response) {
-    const email = req.body.email;
-    const password = req.body.password;
+    // @ts-ignore
+    const email = req.user?.email;
+    // @ts-ignore
+    const password = req.user?.password;
     if (email) {
       const user = await this.userService.getUserByEmail(email, password);
       if (user) {
