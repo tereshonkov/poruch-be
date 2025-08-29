@@ -15,7 +15,7 @@ class UserService {
         return token;
     }
 
-    async getUserById(id: string) {
+    async getUserById(id: UserDto["id"]) {
         const user = await this.prisma.user.findUnique({
             where: { id },
             include: {
@@ -25,7 +25,7 @@ class UserService {
         return user || null;
     }
 
-    async getUserByEmail(email: string) {
+    async getUserByEmail(email: UserDto["email"]) {
         const user = await this.prisma.user.findUnique({ where: { email } });
         if (!user) return null;
     

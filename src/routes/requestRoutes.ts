@@ -9,5 +9,7 @@ const requestController = new RequestController(requestService);
 
 requestRouter.get("/requests/users", authMiddleware, requestController.getUserRequests.bind(requestController));
 requestRouter.post("/requests", authMiddleware, requestController.createRequest.bind(requestController));
+requestRouter.put("/requests/:id", authMiddleware, requestController.editRequest.bind(requestController));
+requestRouter.get("/requests/:id", requestController.getRequestById.bind(requestController));
 
 export { requestRouter };

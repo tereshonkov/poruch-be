@@ -9,6 +9,20 @@ class RequestController {
     this.requestService = requestService;
   }
 
+  async getRequestById(req: Request, res: Response) {
+    const id = req.params.id;
+    try {
+      const request = await this.requestService.findOne(id);
+      if (!request) {
+        return res.status(404).json({ message: "Заявка не знайдена" });
+      }
+      res.status(200).json(request);
+    } catch (err) {
+      console.error("Контроллер упал:", err);
+      res.status(500).json({ message: "Ошибка сервера", error: err });
+    }
+  }
+
   async getUserRequests(req: Request, res: Response) {
     //@ts-ignore
     const userId = req.user?.id;
@@ -41,6 +55,18 @@ class RequestController {
       console.error("Контроллер упал:", err);
       res.status(500).json({ message: "Ошибка сервера", error: err });
     }
+  }
+
+  async editRequest(req: Request, res: Response) {
+    const id = req.params.id;
+    const dto: RequestDto = req.body;
+
+    const existingRequest = await this.requestService.findOne(id);
+    if (!existingRequest) {
+      return res.status(404).json({ message: "Заявка не знайдена" });
+    }
+    const request = await this.requestService.editRequest(id, dto);
+    res.status(200).json(request);
   }
 }
 
