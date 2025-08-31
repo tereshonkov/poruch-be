@@ -8,7 +8,7 @@ const userService = new UserService();
 const userController = new UserController(userService);
 
 userRouter.get("/auth/me", authMiddleware, userController.getUserById.bind(userController));
-userRouter.get("/:email", authMiddleware, userController.getUserByEmail.bind(userController));
+userRouter.get("auth/:email", authMiddleware, userController.getUserByEmail.bind(userController));
 
 userRouter.post("/auth/register", userController.createUser.bind(userController));
 userRouter.post("/auth/login", userController.loginUser.bind(userController));
