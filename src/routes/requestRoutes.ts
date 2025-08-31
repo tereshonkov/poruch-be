@@ -8,7 +8,7 @@ const requestService = new RequestService();
 const requestController = new RequestController(requestService);
 
 
-requestRouter.get("/requests", authMiddleware, requestController.getAllRequests.bind(requestController));
+requestRouter.get("/requests-all", authMiddleware, requestController.getAllRequests.bind(requestController));
 requestRouter.post("/requests", authMiddleware, requestController.createRequest.bind(requestController));
 requestRouter.get("/requests/users", authMiddleware, requestController.getUserRequests.bind(requestController));
 requestRouter.put("/requests/:id", authMiddleware, requestController.editRequest.bind(requestController));
