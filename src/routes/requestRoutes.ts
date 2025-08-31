@@ -11,5 +11,6 @@ requestRouter.get("/requests/users", authMiddleware, requestController.getUserRe
 requestRouter.post("/requests", authMiddleware, requestController.createRequest.bind(requestController));
 requestRouter.put("/requests/:id", authMiddleware, requestController.editRequest.bind(requestController));
 requestRouter.get("/requests/:id", requestController.getRequestById.bind(requestController));
+requestRouter.get("/requests", requestController.getAllRequests.bind(requestController));
 
 export { requestRouter };

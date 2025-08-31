@@ -68,6 +68,16 @@ class RequestController {
     const request = await this.requestService.editRequest(id, dto);
     res.status(200).json(request);
   }
+
+  async getAllRequests(res: Response) {
+    try {
+      const requests = await this.requestService.findAll();
+      res.status(200).json(requests);
+    } catch (err) {
+      console.error("Контроллер упал:", err);
+      res.status(500).json({ message: "Ошибка сервера", error: err });
+    }
+  }
 }
 
 export default RequestController;

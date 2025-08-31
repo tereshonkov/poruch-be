@@ -4,6 +4,13 @@ import { PrismaClient } from "@prisma/client";
 class RequestService {
   private prisma = new PrismaClient();
 
+  async findAll() {
+    const requests = await this.prisma.request.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+    return requests as RequestDto[];
+  }
+
   async findOne(id: RequestDto["id"]) {
       const request = await this.prisma.request.findUnique({
         where: {
