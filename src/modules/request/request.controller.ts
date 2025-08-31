@@ -69,7 +69,7 @@ class RequestController {
     res.status(200).json(request);
   }
 
-  async getAllRequests(res: Response) {
+  async getAllRequests(req:Request, res: Response) {
     try {
       const requests = await this.requestService.findAll();
       res.status(200).json(requests);
