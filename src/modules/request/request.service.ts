@@ -8,6 +8,8 @@ class RequestService {
     const requests = await this.prisma.request.findMany({
       orderBy: { createdAt: "desc" },
     });
+    console.log("Requests found:", requests);
+    
     return requests as RequestDto[];
   }
 
